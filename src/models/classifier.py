@@ -4,7 +4,7 @@ from typing import Dict, List
 import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator
-from sklearn.metrics import f1_score, roc_auc_score, precision_score
+from sklearn.metrics import f1_score, roc_auc_score
 
 class Classifier(ABC):
     @abstractmethod
@@ -44,7 +44,7 @@ class SklearnClassifier(Classifier):
         return {
             "f1_score": f1,
             "roc_auc": roc_auc,
-            "precision_score": precision
+            
         }
     
     
