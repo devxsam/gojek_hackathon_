@@ -6,6 +6,7 @@ from src.utils.config import load_config
 from src.utils.guardrails import validate_evaluation_metrics
 from src.utils.store import AssignmentStore
 
+from sklearn.ensemble import GradientBoostingClassifier
 
 @validate_evaluation_metrics
 def main():
@@ -18,6 +19,10 @@ def main():
     rf_estimator = RandomForestClassifier(**config["random_forest"])
     model = SklearnClassifier(rf_estimator, config["features"], config["target"])
     model.train(df_train)
+
+    gb_estimator = GradientBoostingClassifier(**config["xgboost"]) # Use the parameters from your new config section
+    model = SklearnClassifier(gb_estimator, config["features"], config["target"])
+    model.train(df_train) 
 
     metrics = model.evaluate(df_test)
 

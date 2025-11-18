@@ -36,8 +36,8 @@ def driver_historical_completed_bookings(df: pd.DataFrame) -> pd.DataFrame:
     df_sorted["historical_bookings"] = df_sorted["historical_bookings"].fillna(global_mean)
     
     df = df.merge(
-        df_sorted[['order_id', 'historical_bookings']], 
-        on='order_id', 
+        df_sorted[['order_id', 'driver_id', 'historical_bookings']], 
+        on=['order_id', 'driver_id'],                              
         how='left'
     )
     return df
@@ -95,4 +95,7 @@ def add_profitability_ratios(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+def add_time_distance_interaction(df: pd.DataFrame) -> pd.DataFrame:
+    df['peak_distance_penalty'] = df['driver_distance'] * df['is_peak_hour']
+    return df
 
